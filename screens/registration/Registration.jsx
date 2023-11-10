@@ -16,15 +16,23 @@ import email from '../../assets/email.png';
 import password from '../../assets/password.png';
 import google from '../../assets/google.png';
 import facebook from '../../assets/facebook.png';
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { normalize } from '../../style/responsive';
 import Button from '../../components/Button';
 import SocialButton from '../../components/SocialButton';
+import { Entypo } from '@expo/vector-icons';
 
 const Registration = ({ navigation }) => {
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
+    firstName: '',
+    lastName: '',
+    userName: '',
+    userType: 'client',
+    contactNo: '',
+    address: '',
+    medium: 'email',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -39,6 +47,30 @@ const Registration = ({ navigation }) => {
         <LoginTopBar
           topMessage='Welcome to Taco Truck'
           hintMessage='Sign up for your Account'
+        />
+        <Input
+          label={'First Name'}
+          text={credentials.firstName}
+          setText={(e) => {
+            setText('firstName', e);
+          }}
+          left={<AntDesign name='user' size={normalize(20)} color='#E51A27' />}
+        />
+        <Input
+          label={'Last Name'}
+          text={credentials.lastName}
+          setText={(e) => {
+            setText('lastName', e);
+          }}
+          left={<AntDesign name='user' size={normalize(20)} color='#E51A27' />}
+        />
+        <Input
+          label={'User Name'}
+          text={credentials.userName}
+          setText={(e) => {
+            setText('userName', e);
+          }}
+          left={<AntDesign name='user' size={normalize(20)} color='#E51A27' />}
         />
         <Input
           label={'Email'}
@@ -56,6 +88,22 @@ const Registration = ({ navigation }) => {
               resizeMode='contain'
             />
           }
+        />
+        <Input
+          label={'Address'}
+          text={credentials.address}
+          setText={(e) => {
+            setText('address', e);
+          }}
+          left={<Entypo name='address' size={normalize(20)} color='#E51A27' />}
+        />
+        <Input
+          label={'Phone No'}
+          text={credentials.contactNo}
+          setText={(e) => {
+            setText('contactNo', e);
+          }}
+          left={<Entypo name='phone' size={normalize(20)} color='#E51A27' />}
         />
         <Input
           label={'Password'}

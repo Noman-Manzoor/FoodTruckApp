@@ -20,7 +20,8 @@ export default LoginTopBar;
 
 const styles = StyleSheet.create({
   container: {
-    height: normalize(270),
+    marginTop: normalize(15),
+    height: normalize(230),
     flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: normalize(30),
+    marginBottom: normalize(50),
   },
   platImage: {
     width: '70%',

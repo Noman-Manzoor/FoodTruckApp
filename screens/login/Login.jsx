@@ -111,6 +111,27 @@ const Login = ({ navigation }) => {
         style={{
           textAlign: 'center',
           fontWeight: 'bold',
+          fontSize: normalize(12),
+        }}
+      >
+        Don’t have an account yet?{'  '}
+        <Text
+          style={{
+            color: '#039BE5',
+            fontWeight: 'bold',
+            fontSize: normalize(12),
+          }}
+          onPress={() => {
+            navigation.navigate('registration');
+          }}
+        >
+          Sign up here!
+        </Text>
+      </Text>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontWeight: 'bold',
           fontSize: normalize(14),
         }}
       >
