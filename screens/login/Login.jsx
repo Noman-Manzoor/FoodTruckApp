@@ -19,6 +19,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { normalize } from '../../style/responsive';
 import Button from '../../components/Button';
 import SocialButton from '../../components/SocialButton';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { LoginManager } from 'react-native-fbsdk-next';
+
+GoogleSignin.configure({
+  webClientId: '############################################################',
+});
 
 const Login = ({ navigation }) => {
   const [credentials, setCredentials] = useState({
@@ -32,6 +38,53 @@ const Login = ({ navigation }) => {
       [key]: value,
     });
   };
+
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  const onGoogleButtonPress = async () => {
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Sign-in the user with the credential
+    const user_sign_in = auth().signInWithCredential(googleCredential);
+    user_sign_in
+      .then((user) => {
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const signInWithFB = async () => {
+    try {
+      await LoginManager.logInWithPermissions(['public_profile', 'email']);
+      const data = await AccessToken.getCurrentAccessToken();
+      if (!data) {
+        return;
+      }
+      const facebookCredential = FacebookAuthProvider.credential(
+        data.accessToken
+      );
+      const auth = getAuth();
+      const response = await signInWithCredential(auth, facebookCredential);
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <SafeAreaView style={[main.container, styles.container]}>
       <LoginTopBar
@@ -138,6 +191,7 @@ const Login = ({ navigation }) => {
         Or
       </Text>
       <SocialButton
+        event={onGoogleButtonPress}
         title={'Continue With Google'}
         left={
           <Image
@@ -151,6 +205,7 @@ const Login = ({ navigation }) => {
         }
       />
       <SocialButton
+        event={signInWithFB}
         title={'Continue With Facebook'}
         left={
           <Image

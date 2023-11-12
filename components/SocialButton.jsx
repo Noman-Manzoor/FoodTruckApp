@@ -2,9 +2,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { normalize } from '../style/responsive';
 
-const SocialButton = ({ title, left }) => {
+const SocialButton = ({ title, left, event }) => {
   return (
-    <TouchableOpacity style={styles.btnContainer} onPress={() => {}}>
+    <TouchableOpacity style={styles.btnContainer} onPress={() => event()}>
       {left}
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
