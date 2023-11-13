@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "144255349472",
+    "project_id": "foodtruckapp-b7ebc",
+    "storage_bucket": "foodtruckapp-b7ebc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144255349472:android:9da51f6ab66de4c7601685",
+        "android_client_info": {
+          "package_name": "com.dummy.toccotruck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144255349472-nqcrigkrjnrark7ne5imnn63184amo96.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dummy.toccotruck",
+            "certificate_hash": "77e42c764defb336c6c89fa45b5011ac635d1c4d"
+          }
+        },
+        {
+          "client_id": "144255349472-qusbbokcefkjskvo9gse3bsds1vlrcsi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dummy.toccotruck",
+            "certificate_hash": "327fe4318a7953d843b1885cea8a89c14262918f"
+          }
+        },
+        {
+          "client_id": "144255349472-pecce1v2fme15ekovqcel90jjncdtckc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMlj7mdxKjQJ53QCwNzgEzyBKrQUm1TcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144255349472-pecce1v2fme15ekovqcel90jjncdtckc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

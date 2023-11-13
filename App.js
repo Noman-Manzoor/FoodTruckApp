@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/login';
 import Registration from './screens/registration';
 import BottomNavigation from './routes/BottomNavigation';
+import 'expo-dev-client';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
