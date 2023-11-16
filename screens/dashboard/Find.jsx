@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import main from '../../style/main';
 import { EvilIcons, AntDesign, Ionicons } from '@expo/vector-icons';
 import { normalize } from '../../style/responsive';
-import FoodCard from './dashboard/components/FoodCard';
+import FoodCard from './home/components/FoodCard';
 
 const Find = () => {
   const [list, setList] = useState([

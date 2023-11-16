@@ -17,7 +17,7 @@ import { Picker } from '@react-native-picker/picker';
 import Tab from './components/Tab';
 import FoodCard from './components/FoodCard';
 
-const Dashboard = () => {
+const Home = ({ navigation }) => {
   const [selectedValue, setSelectedValue] = useState('option1');
   const [tabs, setTabs] = useState([
     {
@@ -226,14 +226,19 @@ const Dashboard = () => {
           paddingHorizontal: normalize(20),
         }}
         renderItem={({ item, index }) => (
-          <FoodCard {...item} event={() => {}} />
+          <FoodCard
+            {...item}
+            event={() => {
+              navigation.navigate('truck');
+            }}
+          />
         )}
       />
     </View>
   );
 };
 
-export default Dashboard;
+export default Home;
 
 const styles = StyleSheet.create({
   container: {

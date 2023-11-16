@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { normalize } from '../style/responsive';
-import Dashboard from '../screens/home/dashboard';
-import Find from '../screens/home/Find';
-import Orders from '../screens/home/orders';
-import Featured from '../screens/home/featured';
-import More from '../screens/home/More';
+import Dashboard from '../screens/dashboard/home';
+import Find from '../screens/dashboard/Find';
+import Orders from '../screens/dashboard/orders';
+import Featured from '../screens/dashboard/featured';
+import More from '../screens/dashboard/More';
 import { Image, TouchableOpacity, View, Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
