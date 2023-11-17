@@ -12,7 +12,7 @@ import Banner from './components/Banner';
 import Tabs from './components/Tabs';
 import Tab from './components/Tab';
 
-const Truck = () => {
+const Truck = ({ navigation }) => {
   const [active, setActive] = useState('Info');
   return (
     <View
@@ -50,9 +50,9 @@ const Truck = () => {
       {active === 'Info' ? (
         <Info />
       ) : active === 'Menu' ? (
-        <Menu />
+        <Menu navigation={navigation} />
       ) : active === 'Popular' ? (
-        <Popular />
+        <Popular navigation={navigation} />
       ) : active === 'Location' ? (
         <Location />
       ) : (

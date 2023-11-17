@@ -7,7 +7,7 @@ import { Entypo } from '@expo/vector-icons';
 const blurhash =
   '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
-const MenuItem = ({ img, title, category, price }) => {
+const MenuItem = ({ img, title, category, price, navigation }) => {
   return (
     <View
       style={[
@@ -72,6 +72,7 @@ const MenuItem = ({ img, title, category, price }) => {
       </Text>
 
       <TouchableOpacity
+        onPress={() => navigation.navigate('myCart')}
         style={{
           backgroundColor: '#E51A27',
           padding: normalize(10),

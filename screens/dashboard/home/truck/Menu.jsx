@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import MenuItem from './components/MenuItem';
 
-const Menu = () => {
+const Menu = ({ navigation }) => {
   const [menu, setMenu] = useState([
     {
       img: 'https://placehold.co/600x400.png',
@@ -40,7 +40,9 @@ const Menu = () => {
       numColumns={2}
       data={menu}
       showsVerticalScrollIndicator={false}
-      renderItem={({ item, index }) => <MenuItem {...item} />}
+      renderItem={({ item, index }) => (
+        <MenuItem {...item} navigation={navigation} />
+      )}
     />
   );
 };
