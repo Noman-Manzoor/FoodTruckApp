@@ -189,7 +189,7 @@ const Login = ({ navigation }) => {
       />
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('registration');
+          navigation.navigate('driver');
         }}
       >
         <Text style={styles.forgetPassword}>Forget password?</Text>

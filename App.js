@@ -7,6 +7,8 @@ import 'expo-dev-client';
 import Truck from './screens/dashboard/home/truck';
 import MyCart from './screens/dashboard/home/myCart';
 import CheckOut from './screens/dashboard/home/checkOut';
+import BottomNavigationDriver from './routes/BottomNavigationDriver';
+import AddMenu from './screens/driver/menu/AddMenu';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -19,6 +21,8 @@ export default function App() {
         <Stack.Screen name='truck' component={Truck} />
         <Stack.Screen name='myCart' component={MyCart} />
         <Stack.Screen name='checkOut' component={CheckOut} />
+        <Stack.Screen name='driver' component={BottomNavigationDriver} />
+        <Stack.Screen name='addMenu' component={AddMenu} />
       </Stack.Navigator>
     </NavigationContainer>
   );
