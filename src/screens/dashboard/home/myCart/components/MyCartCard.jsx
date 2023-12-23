@@ -1,11 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import Image from '../../../../../components/Image';
-import { normalize } from '../../../../../style/responsive';
+import {normalize} from '../../../../../style/responsive';
 import main from '../../../../../style/main';
-import { AntDesign } from '@expo/vector-icons';
+import {AntDesign} from '@expo/vector-icons';
 
-const MyCartCard = ({ img, title, category, price, itemCount }) => {
+const MyCartCard = ({img, title, category, price, itemCount, increment, decrement}) => {
   return (
     <View
       style={[
@@ -84,12 +84,12 @@ const MyCartCard = ({ img, title, category, price, itemCount }) => {
             alignContent: 'center',
           }}
         >
-          <TouchableOpacity>
-            <AntDesign name='pluscircle' size={normalize(17)} color='#E51A27' />
+          <TouchableOpacity onPress={increment}>
+            <AntDesign name='pluscircle' size={normalize(17)} color='#E51A27'/>
           </TouchableOpacity>
-
+          
           <Text>{itemCount}</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={decrement}>
             <AntDesign
               name='minuscircle'
               size={normalize(17)}

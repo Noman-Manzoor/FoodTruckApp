@@ -6,11 +6,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
-import { normalize } from '../../../../style/responsive';
+import React, {useEffect, useState} from 'react';
+import {normalize} from '../../../../style/responsive';
 import GalleryImage from './components/GalleryImage';
 import FeedbackCard from './components/FeedbackCard';
-const Info = () => {
+
+const Info = ({
+                description,
+                photos = [],
+                feedbacks = []
+              }) => {
   const [feedback, setFeedback] = useState([
     {
       feedback:
@@ -20,6 +25,12 @@ const Info = () => {
       timeAgo: '1 week ago',
     },
   ]);
+  
+  useEffect(() => {
+    if (feedback.length > 0) {
+      setFeedback(feedbacks)
+    }
+  }, [feedback]);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View
@@ -34,11 +45,7 @@ const Info = () => {
             color: '#929292',
           }}
         >
-          "Welcome to Tasty Tacos on Wheels, where flavor meets fun on wheels!
-          We're your go-to destination for mouthwatering tacos that are bursting
-          with authentic Mexican flavors. From savory street-style tacos to
-          unique gourmet creations, our taco truck is here to satisfy your
-          cravings with every bite.
+          {description}
         </Text>
         <Text style={styles.title}>Photos</Text>
         <View
@@ -48,14 +55,12 @@ const Info = () => {
             flexWrap: 'wrap',
           }}
         >
-          <GalleryImage />
-          <GalleryImage />
-          <GalleryImage />
-          <GalleryImage />
-          <GalleryImage />
-          <GalleryImage />
+          {photos.map((item, index) => {
+            return <GalleryImage key={index} img={item}/>
+          })
+          }
         </View>
-
+        
         <View
           style={{
             flexDirection: 'row',
@@ -71,18 +76,18 @@ const Info = () => {
                 fontWeight: '900',
               }}
             >
-              View all
+              {feedbacks.length?  "View all": "No Feedback"}
             </Text>
           </TouchableOpacity>
         </View>
         <FlatList
-          data={feedback}
+          data={feedbacks}
           showsHorizontalScrollIndicator={false}
           style={{
             flexDirection: 'row',
           }}
           horizontal
-          renderItem={({ item, index }) => <FeedbackCard {...item} />}
+          renderItem={({item, index}) => <FeedbackCard {...item} />}
         />
       </View>
     </ScrollView>

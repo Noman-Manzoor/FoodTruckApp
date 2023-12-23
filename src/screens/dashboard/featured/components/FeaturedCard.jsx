@@ -1,23 +1,21 @@
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import main from '../../../../style/main';
-import { Image } from 'expo-image';
-import { TouchableRipple } from 'react-native-paper';
-import { normalize } from '../../../../style/responsive';
-import { Fontisto, AntDesign } from '@expo/vector-icons';
+import {Image} from 'expo-image';
+import {TouchableRipple} from 'react-native-paper';
+import {normalize} from '../../../../style/responsive';
+import {Fontisto, AntDesign} from '@expo/vector-icons';
 
 const blurhash =
   '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
 const FeaturedCard = ({
-  orderId,
-  url,
-  title,
-  date,
-  price,
-  status,
-  restaurant,
-}) => {
+                        thumbnails: url,
+                        name: title,
+                        startTime: date,
+                        rating: price,
+                        location,
+                      }) => {
   return (
     <View
       style={[
@@ -79,7 +77,7 @@ const FeaturedCard = ({
                   fontSize: normalize(10),
                 }}
               >
-                {date}
+                {new Date(date).toLocaleString()}
               </Text>
             </View>
             <View
@@ -89,7 +87,7 @@ const FeaturedCard = ({
                 flex: 1,
               }}
             >
-              <AntDesign name='star' size={normalize(16)} color='#FFD700' />
+              <AntDesign name='star' size={normalize(16)} color='#FFD700'/>
               <Text
                 style={{
                   color: '#E51A27',
@@ -107,7 +105,7 @@ const FeaturedCard = ({
               fontWeight: '500',
             }}
           >
-            {restaurant}
+            {location.other.address || ""}
           </Text>
         </View>
       </View>

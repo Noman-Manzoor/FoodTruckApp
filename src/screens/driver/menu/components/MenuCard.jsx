@@ -1,115 +1,111 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import {AntDesign, MaterialIcons} from '@expo/vector-icons';
 import main from '../../../../style/main';
 import Image from '../../../../components/Image';
-import { normalize } from '../../../../style/responsive';
+import {normalize} from '../../../../style/responsive';
+import {deleteTruckMenu} from "../../../../api/truck";
+import showSuccessSnackbar, {showErrorSnackbar} from "../../../../utils/Toaster";
 
-const MenuCard = ({ img, title, category, price, itemCount }) => {
-  return (
+const MenuCard = ({_id, img, title, category, price, quantity, navigation, cb}) => {
+  return (<View
+    style={[main.shadow, {
+      backgroundColor: '#fff',
+      padding: normalize(15),
+      margin: normalize(5),
+      borderRadius: normalize(7),
+      flexDirection: 'row',
+      gap: normalize(10),
+    },]}
+  >
+    <Image
+      style={{
+        width: normalize(60), height: normalize(60), borderRadius: 8, overflow: 'hidden',
+      }}
+      img={img}
+    />
     <View
-      style={[
-        main.shadow,
-        {
-          backgroundColor: '#fff',
-          padding: normalize(15),
-          margin: normalize(5),
-          borderRadius: normalize(7),
-          flexDirection: 'row',
-          gap: normalize(10),
-        },
-      ]}
+      style={{
+        flex: 2, flexDirection: 'column', justifyContent: 'space-between',
+      }}
     >
-      <Image
+      <Text>{title}</Text>
+      <Text
         style={{
-          width: normalize(60),
-          height: normalize(60),
-          borderRadius: 500,
-          overflow: 'hidden',
-        }}
-      />
-      <View
-        style={{
-          flex: 2,
-          flexDirection: 'column',
-          justifyContent: 'space-between',
+          color: '#929292',
         }}
       >
-        <Text>{title}</Text>
+        {category}
+      </Text>
+      <Text
+        style={{
+          fontWeight: '900', fontSize: normalize(12),
+        }}
+      >
         <Text
           style={{
-            color: '#929292',
+            color: '#E51A27',
           }}
         >
-          {category}
-        </Text>
-        <Text
-          style={{
-            fontWeight: '900',
-            fontSize: normalize(12),
-          }}
-        >
-          <Text
-            style={{
-              color: '#E51A27',
-            }}
-          >
-            $
-          </Text>{' '}
-          {price}
-        </Text>
+          $
+        </Text>{' '}
+        {price}
+      </Text>
+    </View>
+    <View
+      style={{
+        flex: 1, justifyContent: 'space-between', flexDirection: 'column', alignItems: 'flex-end',
+      }}
+    >
+      <View
+        style={{
+          flexDirection: 'row', gap: normalize(7), alignContent: 'center',
+        }}
+      >
+        <TouchableOpacity onPress={() => {
+          deleteTruckMenu(_id).then(async res => {
+            showSuccessSnackbar(res.data.data.message)
+            await cb()
+          }).catch(err => {
+            console.log(err)
+            showErrorSnackbar(err.response.data.message)
+          })
+        }}>
+          <MaterialIcons name='delete' size={normalize(17)} color='#E51A27'/>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("addMenu", {
+            data: {
+              _id, img, title, category, price, quantity
+            }
+          })
+        }}>
+          <AntDesign name='edit' size={normalize(17)} color='#E51A27'/>
+        </TouchableOpacity>
       </View>
       <View
         style={{
-          flex: 1,
-          justifyContent: 'space-between',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
+          flexDirection: 'row', gap: normalize(5),
         }}
       >
-        <View
+        <Text
           style={{
-            flexDirection: 'row',
-            gap: normalize(7),
-            alignContent: 'center',
+            color: '#E51A27', fontWeight: '600', fontSize: normalize(12),
           }}
         >
-          <TouchableOpacity>
-            <MaterialIcons name='delete' size={normalize(17)} color='#E51A27' />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <AntDesign name='edit' size={normalize(17)} color='#E51A27' />
-          </TouchableOpacity>
-        </View>
-        <View
+          In Stock:
+        </Text>
+        <Text
           style={{
-            flexDirection: 'row',
-            gap: normalize(5),
+            color: '#000', fontWeight: '600', fontSize: normalize(12),
           }}
         >
-          <Text
-            style={{
-              color: '#E51A27',
-              fontWeight: '600',
-              fontSize: normalize(12),
-            }}
-          >
-            In Stock:
-          </Text>
-          <Text
-            style={{
-              color: '#000',
-              fontWeight: '600',
-              fontSize: normalize(12),
-            }}
-          >
-            {itemCount} Left
-          </Text>
-        </View>
+          {quantity} Left
+        </Text>
       </View>
     </View>
-  );
+  </View>);
 };
 
 export default MenuCard;

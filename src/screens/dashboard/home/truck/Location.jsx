@@ -1,10 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { Entypo } from '@expo/vector-icons';
+import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {Entypo} from '@expo/vector-icons';
 import main from '../../../../style/main';
-import { normalize } from '../../../../style/responsive';
+import {normalize} from '../../../../style/responsive';
+import MapView, {Marker} from "react-native-maps";
+import {getPlaceName} from "../../../../utils/place";
 
-const Location = () => {
+const Location = ({location}) => {
+  useEffect(() => {
+    (async () => {
+      if (location && location?.longitude && location.latitude) {
+        await getPlaceName(location.latitude, location.longitude)
+      }
+    })()
+  }, [location]);
   return (
     <View style={[]}>
       <View
@@ -27,21 +36,22 @@ const Location = () => {
             gap: 10,
           }}
         >
-          <Entypo name='location' size={normalize(15)} color='black' />
-
+          <Entypo name='location' size={normalize(15)} color='black'/>
+          
           <Text>Truck Address</Text>
         </View>
-        <View
-          style={{
-            height: normalize(60),
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#ededed',
-          }}
-        >
-          <Text>MAP WILL BE HERE</Text>
-        </View>
-        {/* <MapView style={styles.map} /> */}
+        <MapView style={styles.map} initialRegion={{
+          latitude: location.latitude || 37.78825,
+          longitude: location.longitude || -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}>
+          <Marker
+            coordinate={{latitude: location.latitude || 37.78825, longitude: location.longitude || -122.4324}}
+            title="Marker Title"
+            description="Marker Description"
+          />
+        </MapView>
         <Text
           style={{
             color: '#E51A27',
@@ -55,7 +65,7 @@ const Location = () => {
             fontWeight: '600',
           }}
         >
-          House No 67, James ST, 4th Avenue , Texas
+          {location?.other?.address || ""}
         </Text>
       </View>
     </View>
@@ -64,4 +74,9 @@ const Location = () => {
 
 export default Location;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  map: {
+    height: normalize(150),
+    width: '100%'
+  }
+});

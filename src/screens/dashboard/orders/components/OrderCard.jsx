@@ -1,23 +1,23 @@
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import React from 'react';
 import main from '../../../../style/main';
-import { Image } from 'expo-image';
-import { TouchableRipple } from 'react-native-paper';
-import { normalize } from '../../../../style/responsive';
-import { Fontisto } from '@expo/vector-icons';
+import {Image} from 'expo-image';
+import {TouchableRipple} from 'react-native-paper';
+import {normalize} from '../../../../style/responsive';
+import {Fontisto} from '@expo/vector-icons';
 
 const blurhash =
   '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
 const OrderCard = ({
-  orderId,
-  url,
-  title,
-  date,
-  price,
-  status,
-  restaurant,
-}) => {
+                     orderId,
+                     url,
+                     title,
+                     date,
+                     price,
+                     status,
+                     restaurant,
+                   }) => {
   return (
     <View
       style={[
@@ -96,7 +96,7 @@ const OrderCard = ({
                   fontSize: normalize(12),
                 }}
               >
-                {price}
+                ${price}
               </Text>
               <Text
                 style={{
@@ -104,7 +104,7 @@ const OrderCard = ({
                   fontWeight: '500',
                 }}
               >
-                {status}
+                {status == 0 ? "Pending" : status == 1 ? "Checkout" : status == 2 ? "Accept" : status == 3 ? "Processing" : status == 4 ? "Delivered" : "Rejected"}
               </Text>
             </View>
           </View>
@@ -145,7 +145,7 @@ const OrderCard = ({
               gap: 5,
             }}
           >
-            <Fontisto name='share-a' size={normalize(10)} color='#E51A27' />
+            <Fontisto name='share-a' size={normalize(10)} color='#E51A27'/>
             <Text
               style={{
                 fontSize: normalize(12),

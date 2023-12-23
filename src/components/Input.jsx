@@ -1,4 +1,5 @@
-import {StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
+import {TextInput} from "react-native-paper"
 import React, {useState} from 'react';
 import {normalize} from '../style/responsive';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -14,7 +15,8 @@ const Input = ({
                  type = "default",
                  isDateTime = false,
                  regex,
-                 required = false
+                 required = false,
+                 isDisabled = false
                }) => {
   const [error, setError] = useState("")
   const [isDateTimePickerVisible, setDateTimePickerVisibility] = useState(false);
@@ -34,12 +36,15 @@ const Input = ({
       {left}
       <TextInput
         style={{
-          flex: 1, padding: normalize(10),
+          flex: 1,
+          backgroundColor: 'white'
         }}
         multiline={multiline}
         numberOfLines={multiline ? numberOfLines : 1}
         keyboardType={type}
-        mode='outlined'
+        mode='flat'
+        label={label}
+        disabled={isDisabled}
         placeholder={label}
         editable={!isDateTime}
         value={isDateTime ? new Date(text).toLocaleTimeString() : text}
@@ -61,8 +66,8 @@ const Input = ({
             setText(text)
           }
         }}
-        outlineColor={'transparent'}
-        activeOutlineColor={'transparent'}
+        underlineColor={"transparent"}
+        activeUnderlineColor={'transparent'}
       />
       {isDateTime ? <TouchableOpacity onPress={() => {
         if (isDateTime) setDateTimePickerVisibility(true)

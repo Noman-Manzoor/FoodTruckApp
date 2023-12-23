@@ -37,7 +37,12 @@
       "googleServicesFile": "./google-services.json",
       "permissions": [
         "android.permission.INTERNET"
-      ]
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDGIpq-fAgQZbCHOGv2bb-mhyEv_KttUiE"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

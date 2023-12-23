@@ -1,13 +1,14 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import { Image } from 'expo-image';
-import { normalize } from '../../../../../style/responsive';
+import {Image} from 'expo-image';
+import {normalize} from '../../../../../style/responsive';
 import main from '../../../../../style/main';
-import { Entypo } from '@expo/vector-icons';
+import {Entypo} from '@expo/vector-icons';
+
 const blurhash =
   '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
-const MenuItem = ({ img, title, category, price, navigation }) => {
+const MenuItem = ({img, title, category, price, navigation, addToCart}) => {
   return (
     <View
       style={[
@@ -70,9 +71,9 @@ const MenuItem = ({ img, title, category, price, navigation }) => {
         </Text>
         {price}
       </Text>
-
+      
       <TouchableOpacity
-        onPress={() => navigation.navigate('myCart')}
+        onPress={addToCart}
         style={{
           backgroundColor: '#E51A27',
           padding: normalize(10),
@@ -81,7 +82,7 @@ const MenuItem = ({ img, title, category, price, navigation }) => {
           right: 0,
         }}
       >
-        <Entypo name='plus' size={normalize(20)} color='white' />
+        <Entypo name='plus' size={normalize(20)} color='white'/>
       </TouchableOpacity>
     </View>
   );

@@ -1,11 +1,14 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
-import { normalize } from '../../../../style/responsive';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {normalize} from '../../../../style/responsive';
 import main from '../../../../style/main';
-import { Entypo, MaterialIcons, AntDesign } from '@expo/vector-icons';
-import { TouchableRipple } from 'react-native-paper';
+import {Entypo, MaterialIcons, AntDesign} from '@expo/vector-icons';
+import {TouchableRipple} from 'react-native-paper';
+import MapView, {Marker} from "react-native-maps";
+import {updateTruckOrderRequests} from "../../../../api/truck";
+import {showSuccessSnackbar} from "../../../../utils/Toaster";
 
-const ItemView = ({ count, title, price }) => {
+const ItemView = ({itemCount, title, price}) => {
   return (
     <View
       style={{
@@ -29,7 +32,7 @@ const ItemView = ({ count, title, price }) => {
             fontWeight: '600',
           }}
         >
-          {count}
+          {itemCount}
         </Text>
         <Text
           style={{
@@ -50,7 +53,7 @@ const ItemView = ({ count, title, price }) => {
           {title}
         </Text>
       </View>
-
+      
       <Text
         style={{
           fontSize: normalize(12),
@@ -64,7 +67,7 @@ const ItemView = ({ count, title, price }) => {
   );
 };
 
-const OrderRequest = ({ id, name, date, address, item = [] }) => {
+const OrderRequest = ({id, name, date, deliveryAddress: address, items = [], status, ...item}) => {
   const [show, setShow] = useState(false);
   return (
     <View
@@ -76,9 +79,20 @@ const OrderRequest = ({ id, name, date, address, item = [] }) => {
           margin: normalize(5),
           padding: normalize(15),
           borderRadius: 10,
+          position: 'relative',
+          overflow: 'hidden'
         },
       ]}
     >
+      <Text style={{
+        position: 'absolute',
+        paddingHorizontal: normalize(10),
+        paddingVertical: normalize(10),
+        color: 'white',
+        backgroundColor: status === 2 ? 'green' : status === -1 ? "red" : "blue",
+      }}>
+        {status === 0 ? "Pending" : status == 1 ? "Checkout" : status == 2 ? "Accept" : status == 3 ? "Processing" : status == 4 ? "Delivered" : "Rejected"}
+      </Text>
       <View
         style={{
           flexDirection: 'row',
@@ -115,7 +129,7 @@ const OrderRequest = ({ id, name, date, address, item = [] }) => {
       >
         New Order From {name}
       </Text>
-
+      
       <TouchableRipple
         onPress={() => {
           setShow((prev) => !prev);
@@ -133,7 +147,7 @@ const OrderRequest = ({ id, name, date, address, item = [] }) => {
       {show ? (
         <>
           <View>
-            {item.map((item) => (
+            {items.map((item) => (
               <ItemView {...item} />
             ))}
           </View>
@@ -144,21 +158,28 @@ const OrderRequest = ({ id, name, date, address, item = [] }) => {
               gap: 10,
             }}
           >
-            <Entypo name='location' size={normalize(15)} color='black' />
-
+            <Entypo name='location' size={normalize(15)} color='black'/>
+            
             <Text>Delivery Address</Text>
           </View>
-          <View
-            style={{
-              height: normalize(60),
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#ededed',
-            }}
-          >
-            <Text>MAP WILL BE HERE</Text>
-          </View>
-          {/* <MapView style={styles.map} /> */}
+          <MapView style={{
+            height: normalize(150),
+            width: '100%'
+          }} initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}>
+            <Marker
+              coordinate={{
+                latitude: 37.78825,
+                longitude: -122.4324
+              }}
+              title="Marker Title"
+              description="Marker Description"
+            />
+          </MapView>
           <Text
             style={{
               color: '#E51A27',
@@ -178,7 +199,8 @@ const OrderRequest = ({ id, name, date, address, item = [] }) => {
       ) : (
         <></>
       )}
-      <View
+      
+      {status == 1 ? <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -186,6 +208,17 @@ const OrderRequest = ({ id, name, date, address, item = [] }) => {
         }}
       >
         <TouchableOpacity
+          onPress={() => {
+            updateTruckOrderRequests(item._id, {
+              status: -1
+            }).then(res => {
+              console.log(res.data.data)
+              item.cb()
+              showSuccessSnackbar("Order rejected")
+            }).catch((err) => {
+              console.log(err.response.data)
+            })
+          }}
           style={[
             main.shadow,
             {
@@ -213,6 +246,17 @@ const OrderRequest = ({ id, name, date, address, item = [] }) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => {
+            updateTruckOrderRequests(item._id, {
+              status: 2
+            }).then(res => {
+              console.log(res.data.data)
+              item.cb()
+              showSuccessSnackbar("Order accepted")
+            }).catch((err) => {
+              console.log(err.response.data)
+            })
+          }}
           style={[
             main.shadow,
             {
@@ -237,7 +281,7 @@ const OrderRequest = ({ id, name, date, address, item = [] }) => {
             Accept
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> : <></>}
     </View>
   );
 };

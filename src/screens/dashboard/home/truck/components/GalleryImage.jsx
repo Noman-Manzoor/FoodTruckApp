@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { Image } from 'expo-image';
+import {StyleSheet, Text, View} from 'react-native';
+import {Image} from 'expo-image';
 import React from 'react';
-import { normalize } from '../../../../../style/responsive';
+import {normalize} from '../../../../../style/responsive';
+
 const blurhash =
   '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
-const GalleryImage = () => {
+const GalleryImage = ({img}) => {
   return (
     <View
       style={{
@@ -18,7 +19,7 @@ const GalleryImage = () => {
     >
       <Image
         style={styles.card}
-        source={'https://placehold.co/600x400/000000/FFF'}
+        source={img}
         placeholder={blurhash}
         contentFit='cover'
         transition={1000}
